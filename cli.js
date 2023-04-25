@@ -22,7 +22,19 @@ if (args.h){
 const lat = args.n || args.s * -1;
 const long = args.e || args.w * -1;
 const timezone = args.z || moment.tz.guess() ;
-const days = args.d || 1; 
+// var days;
+
+// //console.log(args.d)
+
+// if (typeof args.d === undefined) {
+//     days = args.d; 
+// } else {
+//     days = 1;
+// }
+
+var days = typeof args.d === undefined ? 1 : args.d
+
+//console.log(days)
 var rainOrNot;
 
 const url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + long + "&timezone=" + timezone + "&daily=precipitation_hours";
@@ -41,10 +53,10 @@ if(data.daily.precipitation_hours[days] > 0) {
 }
     
 if (days == 0) {
-    console.log(rainOrNot += "today.");
-} else if (days == 1) {
-    console.log(rainOrNot += "tomorrow.");
+    console.log(rainOrNot + "today.");
+} else if (days > 1) {
+    console.log(rainOrNot + "in " + days + " days.");
 } else {
-    console.log(rainOrNot += "in " + days + " days.");
+    console.log(rainOrNot + "tomorrow.");
 }  
 process.exit(0);
